@@ -7,7 +7,7 @@
       systemSettings = {
         system = "x86_64-linux"; # system arch
         hostname = "snowfire"; # hostname
-        profile = "personal"; # select a profile defined from my profiles directory
+        profile = "homelab"; # select a profile defined from my profiles directory
         timezone = "Europe/Paris"; # select timezone
         locale = "en_US.UTF-8"; # select locale
         bootMode = "uefi"; # uefi or bios
@@ -37,6 +37,7 @@
         # generates a command that can be used to spawn editor inside a gui
         # EDITOR and TERM session variables must be set in home.nix or other module
         # I set the session variable SPAWNEDITOR to this in my home.nix for convenience
+        sshAuthorizedKey = "SSH_AUTHORIZED_KEY";
         spawnEditor = if (editor == "emacsclient") then
                         "emacsclient -c -a 'emacs'"
                       else
@@ -165,20 +166,6 @@
             inherit userSettings;
             inherit inputs;
           };
-        };
-      };
-      nixOnDroidConfigurations = {
-        inherit pkgs;
-        default = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
-          modules = [ ./profiles/nix-on-droid/configuration.nix ];
-        };
-        extraSpecialArgs = {
-          # pass config variables from above
-          inherit pkgs-stable;
-          inherit pkgs-emacs;
-          inherit systemSettings;
-          inherit userSettings;
-          inherit inputs;
         };
       };
 

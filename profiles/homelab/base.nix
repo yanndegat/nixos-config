@@ -5,7 +5,7 @@
     [ ../../system/hardware-configuration.nix
       ../../system/hardware/time.nix # Network time sync
       ../../system/security/firewall.nix
-      ../../system/security/doas.nix
+      #../../system/security/doas.nix
       ../../system/security/gpg.nix
       ( import ../../system/app/docker.nix {storageDriver = null; inherit pkgs userSettings lib;} )
     ];

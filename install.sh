@@ -10,6 +10,11 @@ if [ $# -gt 0 ]
     SCRIPT_DIR=~/.dotfiles
 fi
 
+SSH_AUTHORIZED_KEY=""
+if [[ -f ~/.ssh/authorized_keys ]]; then
+  SSH_AUTHORIZED_KEY="$(grep ssh ~/.ssh/authorized_keys | head -1)"
+fi
+
 nix-shell -p git --command "git clone https://github.com/yanndegat/nixos-config $SCRIPT_DIR"
 
 # Generate hardware config for new system
@@ -25,6 +30,7 @@ else
 fi
 
 # Patch flake.nix with different username/name and remove email by default
+sed -i "0,/SSH_AUTHORIZED_KEY/s//${SSH_AUTHORIZED_KEY}/" $SCRIPT_DIR/flake.nix
 sed -i "0,/foouser/s//$(whoami)/" $SCRIPT_DIR/flake.nix
 sed -i "0,/FooUser/s//$(getent passwd $(whoami) | cut -d ':' -f 5 | cut -d ',' -f 1)/" $SCRIPT_DIR/flake.nix
 sed -i "s/foouser@bar.net//" $SCRIPT_DIR/flake.nix
