@@ -10,7 +10,9 @@
       ../../system/hardware/kernel.nix # Kernel config
       ../../system/hardware/time.nix # Network time sync
       ./vm.nix
-      ../../system/wm/hyprland.nix # Network time sync
+      ../../system/wm/gnome.nix # hyprland  window manger for wayland
+      ../../system/wm/hyprland.nix # hyprland  window manger for wayland
+      ../../system/wm/remote-desktop.nix # remote desktop (xrdp + guacamole)
       ../../system/app/virtualization.nix
       ( import ../../system/app/docker.nix {storageDriver = null; inherit pkgs userSettings lib;} )
       # ../../system/security/doas.nix

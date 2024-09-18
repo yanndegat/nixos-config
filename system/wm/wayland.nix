@@ -8,17 +8,7 @@
             ];
 
   environment.systemPackages = with pkgs;
-    [ wayland waydroid
-      (sddm-chili-theme.override {
-        themeConfig = {
-          background = config.stylix.image;
-          ScreenWidth = 1920;
-          ScreenHeight = 1080;
-          blur = true;
-          recursiveBlurLoops = 3;
-          recursiveBlurRadius = 5;
-        };})
-    ];
+    [ wayland gnome.gdm ];
 
   # Configure xwayland
   services.xserver = {
@@ -27,6 +17,13 @@
       layout = "us";
       variant = "";
       options = "caps:escape";
+    };
+    excludePackages = [ pkgs.xterm ];
+
+    displayManager.gdm = {
+      enable = true;
+      wayland = true;
+      autoSuspend = true;
     };
   };
 }

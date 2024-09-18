@@ -23,7 +23,7 @@ I wrote some reinstall notes for myself [[./install.org][here (install.org)]].
 
 TLDR: You should™ be able to install my dotfiles to a fresh NixOS system with the following experimental script:
 #+begin_src sh :noeval
-nix-shell -p git --command "nix run --experimental-features 'nix-command flakes' gitlab:librephoenix/nixos-config"
+nix-shell -p git --command "nix run --experimental-features 'nix-command flakes' github:yanndegat/nixos-config"
 #+end_src
 
 Disclaimer: Ultimately, I can't gaurantee this will work for anyone other than myself, so /use this at your own discretion/. Also my dotfiles are /highly/ opinionated, which you will discover immediately if you try them out.
@@ -104,7 +104,3 @@ TLDR:
   - =phoenix gc 15d= - Delete everything older than 15 days
   - =phoenix gc 30d= - Delete everything older than 30 days
   - =phoenix gc Xd= - Delete everything older than X days
-
-** Star History
-Didn't think this would get that many [[https://star-history.com/#librephoenix/nixos-config&Date][stars on GitHub]], yet here we are:
-[[https://api.star-history.com/svg?repos=librephoenix/nixos-config&type=Date.png]]

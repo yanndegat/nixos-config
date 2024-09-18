@@ -56,13 +56,6 @@
       ];
     };
   };
-  users.users = {
-    nixos = {
-      isNormalUser = true;
-      extraGroups = [ "wheel" ];
-      shell = pkgs.bash;
-    };
-  };
   security = {
     sudo = {
       wheelNeedsPassword = lib.mkForce false;
