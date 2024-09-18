@@ -45,7 +45,7 @@ nix-shell -p git --command "nix run --experimental-features 'nix-command flakes'
 
 This /should/ still work with a custom dotfiles directory too, i.e:
 #+begin_src sh :noeval
-nix-shell -p git --command "nix run --experimental-features 'nix-command flakes' github.com:yanndegat/nixos-config -- /your/custom/directory"
+pgg -- /your/custom/directory"
 #+end_src
 
 At a certain point in the install script it will open =nano= (or whatever your $EDITOR is set to) and ask you to edit the =flake.nix=. You can edit as much or as little of the config variables as you like, and it will continue the install after you exit the editor.

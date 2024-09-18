@@ -6,7 +6,7 @@
       # ---- SYSTEM SETTINGS ---- #
       systemSettings = {
         system = "x86_64-linux"; # system arch
-        hostname = "snowfire"; # hostname
+        hostname = "dev"; # hostname
         profile = "work-cloud"; # select a profile defined from my profiles directory
         timezone = "Europe/Paris"; # select timezone
         locale = "en_US.UTF-8"; # select locale
@@ -18,15 +18,15 @@
 
       # ----- USER SETTINGS ----- #
       userSettings = rec {
-        username = "foouser"; # username
-        name = "FooUser"; # name/identifier
-        email = "foouser@bar.net"; # email (used for certain configurations)
+        username = "devone"; # username
+        name = "Dave One"; # name/identifier
+        email = "devone@bar.net"; # email (used for certain configurations)
         dotfilesDir = "~/.dotfiles"; # absolute path of the local repo
         theme = "io"; # selcted theme from my themes directory (./themes/)
         wm = "hyprland"; # Selected window manager or desktop environment; must select one in both ./user/wm/ and ./system/wm/
         # window manager type (hyprland or x11) translator
-        wmType = if ((wm == "hyprland") || (wm == "plasma")) then "wayland" else "x11";
-        browser = "qutebrowser"; # Default browser; must select one from ./user/app/browser/
+        wmType = "wayland";
+        browser = "librewolf"; # Default browser; must select one from ./user/app/browser/
         spawnBrowser = if ((browser == "qutebrowser") && (wm == "hyprland")) then "qutebrowser-hyprprofile" else (if (browser == "qutebrowser") then "qutebrowser --qt-flag enable-gpu-rasterization --qt-flag enable-native-gpu-memory-buffers --qt-flag num-raster-threads=4" else browser); # Browser spawn command must be specail for qb, since it doesn't gpu accelerate by default (why?)
         defaultRoamDir = "Personal.p"; # Default org roam directory relative to ~/Org
         term = "alacritty"; # Default terminal command;
@@ -243,9 +243,6 @@
     kwin-effects-forceblur.url = "github:taj-ny/kwin-effects-forceblur";
     kwin-effects-forceblur.inputs.nixpkgs.follows = "nixpkgs";
 
-    # FIXME emacsng doesn't build or dumps core
-    #emacsng.url = "github:emacs-ng/emacs-ng/58fcf8c";
-    #emacsng.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     nix-doom-emacs.inputs.nixpkgs.follows = "emacs-pin-nixpkgs";

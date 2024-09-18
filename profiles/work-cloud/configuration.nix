@@ -8,22 +8,15 @@
     [ ../../system/hardware-configuration.nix
       ../../system/hardware/systemd.nix # systemd config
       ../../system/hardware/kernel.nix # Kernel config
-      ../../system/hardware/power.nix # Power management
       ../../system/hardware/time.nix # Network time sync
-      ../../system/hardware/opengl.nix
-      ../../system/hardware/printing.nix
-      ../../system/hardware/bluetooth.nix
       ./vm.nix
-      (./. + "../../../system/wm"+("/"+userSettings.wm)+".nix") # My window manager
-      #../../system/app/flatpak.nix
+      ../../system/wm/hyprland.nix # Network time sync
       ../../system/app/virtualization.nix
       ( import ../../system/app/docker.nix {storageDriver = null; inherit pkgs userSettings lib;} )
       # ../../system/security/doas.nix
       ../../system/security/gpg.nix
       ../../system/security/blocklist.nix
       ../../system/security/firewall.nix
-      ../../system/security/firejail.nix
-      ../../system/security/openvpn.nix
       ../../system/security/automount.nix
       ../../system/style/stylix.nix
     ];
@@ -45,17 +38,6 @@
 
   # I'm sorry Stallman-taichou
   nixpkgs.config.allowUnfree = true;
-
-  # Kernel modules
-  boot.kernelModules = [ "i2c-dev" "i2c-piix4" "cpufreq_powersave" ];
-
-  # Bootloader
-  # Use systemd-boot if uefi, default to grub otherwise
-  boot.loader.systemd-boot.enable = if (systemSettings.bootMode == "uefi") then true else false;
-  boot.loader.efi.canTouchEfiVariables = if (systemSettings.bootMode == "uefi") then true else false;
-  boot.loader.efi.efiSysMountPoint = systemSettings.bootMountPath; # does nothing if running bios rather than uefi
-  boot.loader.grub.enable = if (systemSettings.bootMode == "uefi") then false else true;
-  boot.loader.grub.device = systemSettings.grubDevice; # does nothing if running uefi rather than bios
 
   # Networking
   networking.hostName = systemSettings.hostname; # Define your hostname.
@@ -89,11 +71,12 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
-    zsh
+    curl
+    fish
     git
+    tmux
     cryptsetup
     home-manager
-    wpa_supplicant
     (pkgs.writeScriptBin "comma" ''
       if [ "$#" = 0 ]; then
         echo "usage: comma PKGNAME... [EXECUTABLE]";
@@ -108,10 +91,10 @@
     '')
   ];
 
-  # I use zsh btw
-  environment.shells = with pkgs; [ zsh ];
-  users.defaultUserShell = pkgs.zsh;
-  programs.zsh.enable = true;
+  # I use fish btw
+  environment.shells = with pkgs; [ fish ];
+  users.defaultUserShell = pkgs.fish;
+  programs.fish.enable = true;
 
   fonts.fontDir.enable = true;
 
@@ -125,5 +108,4 @@
 
   # It is ok to leave this unchanged for compatibility purposes
   system.stateVersion = "22.11";
-
 }
